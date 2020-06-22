@@ -1,0 +1,60 @@
+
+
+.background {
+    background-color: rgb(235,235,235);
+}
+
+.margin-main {
+    margin-top: 12px;
+    margin-bottom: 12px;
+}
+
+.margin-item1 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.margin-item2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.magin-main-lateral {
+    margin-right: 5 px;
+    margin-left: 5 px;
+}
+
+.textNav {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+    box-sizing: border-box;
+}
+
+.content {background-color: #FAD7A0; padding: 30px; border-style: double; border-width: 5px; font-size: 18px; text-align: left; max-width: 1200px; width: 100%; margin: 20px auto;}
+
+.key { position: absolute; font-family: Helvetica; font-weight: 100; font-size: 12px;
+       border: 1px solid rgba(32,32,32,0.2);
+       border-radius: 0px 0px 5px 5px;
+       cursor:pointer;
+       box-shadow: 0px 5px 1px rgba(32,32,32,0.2);
+       -webkit-transition: margin 0.05s ease, background-color 0.05s ease, box-shadow 0.05s ease; }
+.key:hover { background-color: #71DB90; }
+
+.key .label { position: absolute; bottom: 15px; text-align: center; left: 0px; right: 0px; }
+
+.keyLabel {font-weight: 900; text-shadow: 0px -1px 5px #EBF508; font-size: 15px;}
+
+.black { background-color: rgb(32,32,32); color: #ffffff; z-index: 1; text-shadow: 0px -1px 1px #FF0000; }
+
+.white { background-color: #F2F2DE; color: #3008F5; z-index: 0; text-shadow: 0px 1px 1px #08E8F5; }
+
+.keyboard-holder { margin: 30px auto; height: 200px; position:relative; user-select:none; -webkit-user-select:none;-moz-user-select:none;-o-user-select:none; max-width: 1200px; width: 100%;}
+.keyLabel {font-weight: 900; text-shadow: 0px -1px 5px #EBF508; font-size: 15px;}
+
+.black { background-color: rgb(32,32,32); color: #ffffff; z-index: 1; text-shadow: 0px -1px 1px #FF0000; }
+
+.white { background-color: #F2F2DE; color: #3008F5; z-index: 0; text-shadow: 0px 1px 1px #08E8F5; }
+
+.keyboard-holder { margin: 30px auto; height: 200px; position:relative; user-select:none; -webkit-user-select:none;-moz-user-select:none;-o-user-select:none; }

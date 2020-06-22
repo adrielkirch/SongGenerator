@@ -1,0 +1,153 @@
+
+<html>
+    <head>
+        <script src="../plugins/jquery.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="../plugins/bootstrap-4.4.1-dist/css/bootstrap.min.css">
+        <script src="../plugins/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="../styles/general.css">
+        <script src="https://kit.fontawesome.com/2639085eae.js" crossorigin="anonymous"></script> 
+    </head>
+    <body>
+        <header> 
+            <nav class = "navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container">
+                    <a class = "navbar-brand mr-5" href = "index.html"><i class="fas fa-music"></i></a>
+                    <button class = "navbar-toggler" type = "button" data-toggle = "collapse" data-target = "#navbarNavAltMarkup" aria-controls = "navbarNavAltMarkup" aria-expanded = "false" aria-label = "Toggle navigation">
+                        <span class = "navbar-toggler-icon"></span>
+                    </button>
+                    <div class = "collapse navbar-collapse" id = "navbarNavAltMarkup">
+                        <div class = "navbar-nav">
+                            <a class = "nav-item nav-link " href = "createNewSequence.html"><span class="textNav">My scales</span></a>
+                            <a class = "nav-item nav-link " href = "randomNotes.html"><span class="textNav">Notes generator</span></a>                      
+                            <a class = "nav-item nav-link " href = "pianoVirtual.html"><span class="textNav">Virtual Piano</span></a>
+                            <a class = "nav-item nav-link " href = "help.html"><span class="textNav">Help</span></a>
+                        </div>                  
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <main>
+            <div class="container sm-12 margin-main"> 
+                <h3 class="margin-item2">Create Scale</h3>
+
+                <button type="button" class="btn btn-dark margin-item1" id="b1">T</button>
+                <button type="button" class="btn btn-secondary margin-item1" id="b2">S</button>
+                <button type="button" class="btn btn-warning margin-item1" id="b3">Clear</button>
+                <br>
+
+                <div class="margin-item2"> <strong >Intervalos:</strong>
+                    <span id="seq"></span>
+                </div>
+
+
+                <div class="input-group sm-12 margin-main">
+                    <input type="text" id="nameScale" class="form-control" placeholder="Scale name" aria-label="Scale name" aria-describedby="Scale name">
+
+                </div>
+
+
+                <button type="button"  class="btn btn-success margin-item2" id="b4">Save</button>
+                <hr>
+
+                <h3 class="margin-item2">Delete Scale</h3>
+                <div class="form-group">
+                    <label>Scale (sequence)</label>
+                    <select name="select" id="select" class="form-control">
+
+
+                    </select>
+                </div>
+                <button type="button"  class="btn btn-warning margin-item2" id="b5">Delete Item</button>
+                <button type="button"  class="btn btn-danger margin-item2" id="b6">Delete All</button>
+                <button type="button"  class="btn btn-primary margin-item2" id="b7">cliick</button>
+            </div>
+        </main>
+        <footer>
+
+        </footer>
+    </body>
+    <script>
+
+
+    </script>
+    <script>
+
+        $(document).ready(function () {
+
+            let sequenciaIntervalo = "";
+            function viewScale() {
+                var names = [];
+                var options = "<option value='0'>select</option>";
+
+                for (var i = 0, len = localStorage.length; i < len; i++) {
+                    var key = localStorage.key(i);
+                    var value = localStorage[key];
+                    
+
+                    var stringItem = JSON.stringify(value);
+
+                    options += "<option value='" + i + "'>" + stringItem + "</option>";
+                    console.log(options);
+                }
+                $("#select").html(options);
+
+            }
+
+       
+           viewScale();
+            function createScale() {
+                var seq = $("#seq").text();
+                var name = $("#nameScale").val();
+                var data = JSON.parse(localStorage.getItem("dataScale"));
+                if (data == null) {
+                    localStorage.setItem("dataScale", "[]");
+                    data = [];
+                }
+                var auxRegister = {
+                    sequence: seq,
+                    name: name
+                }
+                data.push(auxRegister);
+                localStorage.setItem("dataScale", JSON.stringify(data));
+                alert("A escala: " + name + " foi cadastrada com sucesso!");
+                $("#seq").val("");
+                $("#nameScale").val("");
+            }
+
+
+
+
+            $("#b1").click(function () {
+                sequenciaIntervalo = sequenciaIntervalo + "T";
+                $('#seq').text(sequenciaIntervalo);
+            });
+            $("#b2").click(function () {
+                sequenciaIntervalo = sequenciaIntervalo + "S";
+                $('#seq').text(sequenciaIntervalo);
+            });
+            $("#b4").click(function () {
+                createScale();
+            });
+            $("#b3").click(function () {
+                $('#seq').text("");
+            });
+            $("#b5").click(function () {
+                let option = $("#option").val();
+                localStorage.removeItem(option);
+            });
+
+            $("#b6").click(function () {
+                localStorage.clear();
+            });
+
+            $("#b7").click(function () {
+                viewScale();
+
+            });
+
+        });
+
+
+    </script>
+
+</html>
