@@ -22,7 +22,6 @@ class RandomNotes {
             var index = Math.floor(Math.random() * 100);
             result.push(array[index]);
         }
-        console.log(result);
         var currentNote = this.scale.tonic;
         notes.push(currentNote);
         for (var l = 0; l < result.length; l++) {
@@ -42,7 +41,7 @@ class RandomNotes {
             }
             
         }
-        console.log(notes);
+        return notes;
     }
 
     setProbability(value)

@@ -128,7 +128,8 @@
 
                     <div class="margin-item2">
                         <strong class="disabled"> Random Sequence:</strong>
-                        <span id="randomSeq"> C E G A B C D C G A G B E F C E E F A</span>
+                        <span id="randomSeq"></span>
+                        <button id="play">Play</button>
                     </div>
 
 
@@ -148,6 +149,7 @@
 
         </footer>
     </body>
+    <script src="../plugins/pianoVirtual.js"></script>
     <script>
         function totalProb() {
             var total = 0;
@@ -186,28 +188,28 @@
         $(document).ready(function () {
             viewScale();
 
-
-
-
-
-
-
+            $("#play").click(function() {
+                
+                var notesStr = $("#randomSeq").html();
+                var notes = notesStr.split(",");
+                var piano = Synth.createInstrument('piano');
+                var idx = 0;
+                var interval = setInterval(function() {
+                    piano.play((notes[idx]+"").trim(), 4, 2);
+                    idx++;
+                    if(idx >= notes.length) {
+                        clearInterval(interval);
+                    }
+                }, 200);
+            });
 
             function getAllInputs() {
-
-
                 r.probability = prob;
             }
-
-
-
-
 
             $('.prob').change(function () {
                 renderTotalProb();
             });
-
-
 
             function viewScale() {
                 var names = [];
@@ -286,8 +288,14 @@
 
                     var scale = new Scale(sequenceJson.sequence, sequenceJson.name, $('#notes').val());
                     var random = new RandomNotes(prob, scale);
-                    random.generateRandomNoteSequence(amount);
-
+                    var generated = random.generateRandomNoteSequence(amount);
+                    var comma = "";
+                    var result = "";
+                    for(var i = 0; i < generated.length; i++) {
+                        result += comma + generated[i];
+                        comma = ", ";
+                    }
+                    $("#randomSeq").html(result);
                 } else {
                     alert("Sua probabilidade total deve contabilizar 100%");
                 }

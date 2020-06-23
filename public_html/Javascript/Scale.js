@@ -12,8 +12,6 @@ class Scale {
         var index = this.notes.findIndexByKey(key);
         var scale = [key];
         for (var i = 0; i < this.sequence.length - 1; i++) {
-            //validation
-
             if (this.sequence.charAt(i) == 'T') {
                 var nextIndex = this.notes.fixIndex(index + 2);
                 scale.push(notes[nextIndex]);
@@ -33,9 +31,7 @@ class Scale {
         var index = this.notes.findIndexByKey(currentNote);
         if (interval == 'T') {
             index += 2;
-
-        }
-        else {
+        } else {
             index += 1;
         }
          if (index >= this.notes.notes.length) {
@@ -46,12 +42,12 @@ class Scale {
     }
 
     getPreviousNote(currentNote) {
+        this.addCurrentPosition(-1);
         var interval = this.sequence[this.currentPosition];
 
         var index = this.notes.findIndexByKey(currentNote);
         if (interval == 'T') {
             index -= 2;
-
         } else {
             index -= 1;
         }
@@ -59,7 +55,7 @@ class Scale {
         if (index < 0) {
             index += this.notes.notes.length;
         }
-        this.addCurrentPosition(-1);
+        
         return this.notes.notes[index];
     }
 
