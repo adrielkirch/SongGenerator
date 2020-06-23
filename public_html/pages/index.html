@@ -1,36 +1,118 @@
 
-<html>
+<!doctype html>
+<html lang="en">
     <head>
         <script src="../plugins/jquery.js" type="text/javascript"></script>
         <link rel="stylesheet" href="../plugins/bootstrap-4.4.1-dist/css/bootstrap.min.css">
         <script src="../plugins/bootstrap-4.4.1-dist/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="../styles/general.css">
         <script src="https://kit.fontawesome.com/2639085eae.js" crossorigin="anonymous"></script> 
+        <script src="../Javascript/Scale.js" type="text/javascript"></script>
+        <script src="../Javascript/Notes.js" type="text/javascript"></script>
+        <script src="../Javascript/RandomNotes.js" type="text/javascript"></script>
     </head>
     <body>
-        <header> 
+
+        <header>
             <nav class = "navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class = "navbar-brand mr-5" href = "index.html"><i class="fas fa-music"></i></a>
-                <button class = "navbar-toggler" type = "button" data-toggle = "collapse" data-target = "#navbarNavAltMarkup" aria-controls = "navbarNavAltMarkup" aria-expanded = "false" aria-label = "Toggle navigation">
-                    <span class = "navbar-toggler-icon"></span>
-                </button>
-                <div class = "collapse navbar-collapse" id = "navbarNavAltMarkup">
-                    <div class = "navbar-nav">
-                        <a class = "nav-item nav-link " href = "createNewSequence.html"><span class="textNav">My scales</span></a>
-                        <a class = "nav-item nav-link " href = "randomNotes.html"><span class="textNav">Notes generator</span></a>                      
-                        <a class = "nav-item nav-link " href = "pianoVirtual.html"><span class="textNav">Virtual Piano</span></a>
-                        <a class = "nav-item nav-link " href = "help.html"><span class="textNav">Help</span></a>
-                    </div>                  
+                <div class="container">
+                    <a class = "navbar-brand mr-5" href = "index.html"><i class="fas fa-music"></i></a>
+                    <button class = "navbar-toggler" type = "button" data-toggle = "collapse" data-target = "#navbarNavAltMarkup" aria-controls = "navbarNavAltMarkup" aria-expanded = "false" aria-label = "Toggle navigation">
+                        <span class = "navbar-toggler-icon"></span>
+                    </button>
+                    <div class = "collapse navbar-collapse" id = "navbarNavAltMarkup">
+                        <div class = "navbar-nav">
+                            <a class = "nav-item nav-link " href = "createNewSequence.html"><span class="textNav">My scales</span></a>
+                            <a class = "nav-item nav-link " href = "randomNotes.html"><span class="textNav">Notes generator</span></a>                      
+                            <a class = "nav-item nav-link " href = "pianoVirtual.html"><span class="textNav">Virtual Piano</span></a>
+                            <a class = "nav-item nav-link " href = "help.html"><span class="textNav">Help</span></a>
+                        </div>                  
+                    </div>
                 </div>
-            </div>
-        </nav>
+            </nav>
         </header>
-        <main>
 
+        <main role="main">
+
+
+
+            <!-- Marketing messaging and featurettes
+            ================================================== -->
+            <!-- Wrap the rest of the page in another container to center all the content. -->
+
+            <div class="container marketing">
+
+
+                <!-- START THE FEATURETTES -->
+                <h1 class="bd-title margin-main" id="content">Song Generator 1.0 </h1>
+                <hr class="featurette-divider">
+
+                <div class="row featurette">
+                    <div class="col-md-7">
+                        <h2 class="featurette-heading">Virtual Piano, Synthizer, create new music patters.<span class="text-muted"> It'll blow your mind.</span></h2>
+                        <p class="lead">Create your own music sequence, and generate Random song sequence with your preferences and style, and play it with the piano synthizer</p>
+                    </div>
+                    <div class="col-md-5">
+                        <img class="featurette-image img-fluid mx-auto" src="../midia/piano.jpg" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+                    </div>
+                </div>
+
+                <hr class="featurette-divider">
+
+                <div class="row featurette">
+                    <div class="col-md-7 order-md-2">
+                        <h2 class="featurette-heading">Oh yeah, it's that good. </h2>
+                        <p class="lead">The algorith is a simple artificial inteligence aplication, using probability concepts, a lot of math, mixing with music theory. The bot will generate a song pattern. <strong><a href="randomNotes.html">See for yourself.</a></strong></p>
+
+                    </div>
+                    <div class="col-md-5 order-md-1">
+                        <img class="featurette-image img-fluid mx-auto" src="../midia/IA.png" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+
+                    </div>
+
+                </div>
+
+                <hr class="featurette-divider">
+
+                <div class="row featurette">
+                    <div class="col-md-7">
+                        <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Open Source Code.</span></h2>
+                        <p class="lead">The code is all open source, every line of code is available at <strong><a href="https://github.com/adrielkirch/SongGenerator">github Song Generator repository</a>.</strong></p>
+                    </div>
+                    <div class="col-md-5">
+                        <img class="featurette-image img-fluid mx-auto" src="../midia/openSource.jpg" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+                    </div>
+                </div>
+
+                <hr class="featurette-divider">
+                <!-- Three columns of text below the carousel -->
+                <div class="jumbotron">
+                    <a href="pianoVirtual.html"><button type="button" class="btn btn-success btn-lg btn-block"> Lets play!</button>  </a>
+                </div>
+
+
+
+
+                <!-- /END THE FEATURETTES -->
+
+            </div><!-- /.container -->
+
+
+            <!-- FOOTER -->
+            <footer class="container">
+                <p class="float-right"><a href="#">Back to top</a></p>
+                <p>&copy; 2020 by Adriel Kirch&middot; </p>
+            </footer>
         </main>
-        <footer>
 
-        </footer>
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+
+        <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+        <script src="../../assets/js/vendor/popper.min.js"></script>
+        <script src="../../dist/js/bootstrap.min.js"></script>
+        <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+        <script src="../../assets/js/vendor/holder.min.js"></script>
     </body>
 </html>

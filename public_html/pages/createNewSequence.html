@@ -57,7 +57,7 @@
 
                     </select>
                 </div>
-                <button type="button"  class="btn btn-warning margin-item2" id="b5">Delete Item</button>
+                
                 <button type="button"  class="btn btn-danger margin-item2" id="b6">Delete All</button>
                 
             </div>
@@ -71,7 +71,8 @@
 
     </script>
     <script>
-
+     
+        
         $(document).ready(function () {
 
             let sequenciaIntervalo = "";
@@ -144,6 +145,7 @@
 
             $("#b6").click(function () {
                 localStorage.clear();
+                viewScale();
             });
 
  

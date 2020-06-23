@@ -112,9 +112,9 @@
                     <hr>
                     <br>
 
-                    <h3 class="">Generator</h3>
+                    <h3 class="margin-main">Generator</h3>
 
-                    <label>Total probability</label>
+                    <label><strong>Total probability(%)</strong></label>
                     <h3 id="totalP"></h3>
 
                     <label>Total notes</label>
@@ -129,15 +129,16 @@
                     <div class="margin-item2">
                         <strong class="disabled"> Random Sequence:</strong>
                         <span id="randomSeq"></span>
-                        <button id="play">Play</button>
+
+
                     </div>
 
 
 
 
-                    <button id="btnGenerate" type="button" class="btn btn-warning">Generate</button>
+                    <button id="btnGenerate" type="button" class="btn btn-warning margin-item1 ">Generate</button>
 
-
+                    <button id="play" type="button" class="btn btn-success margin-item1">Play !</button>
                     <br>
 
 
@@ -151,155 +152,155 @@
     </body>
     <script src="../plugins/pianoVirtual.js"></script>
     <script>
-        function totalProb() {
-            var total = 0;
-            $('.prob').each(function () {
-                if (!$(this).val()) {
-                    return;
-                }
-                total += parseFloat($(this).val());
-            })
-            return total;
-        }
+                                    function totalProb() {
+                                        var total = 0;
+                                        $('.prob').each(function () {
+                                            if (!$(this).val()) {
+                                                return;
+                                            }
+                                            total += parseFloat($(this).val());
+                                        })
+                                        return total;
+                                    }
 
-        function renderTotalProb() {
-            $('#totalP').text(totalProb());
-        }
-
-
-
-        function fixInput(idInput) {
-            var sub = 0;
-            var total = totalProb();
-            if (total > 100) {
-                sub = total - 100;
-                var val = $(idInput).val();
-                $(idInput).val(val - sub);
-
-            } else if (total < 100) {
-
-                sub = 100 - total;
-                var val = $(idInput).val();
-                $(idInput).val(val + sub);
-            }
-            renderTotalProb();
-
-        }
-        $(document).ready(function () {
-            viewScale();
-
-            $("#play").click(function() {
-                
-                var notesStr = $("#randomSeq").html();
-                var notes = notesStr.split(",");
-                var piano = Synth.createInstrument('piano');
-                var idx = 0;
-                var interval = setInterval(function() {
-                    piano.play((notes[idx]+"").trim(), 4, 2);
-                    idx++;
-                    if(idx >= notes.length) {
-                        clearInterval(interval);
-                    }
-                }, 200);
-            });
-
-            function getAllInputs() {
-                r.probability = prob;
-            }
-
-            $('.prob').change(function () {
-                renderTotalProb();
-            });
-
-            function viewScale() {
-                var names = [];
-                var options = "<option value='0'>select</option>";
-
-                if (!localStorage.dataScale) {
-                    return;
-                }
-                var scales = JSON.parse(localStorage.dataScale);
-
-                for (var i = 0; i < scales.length; i++) {
-
-                    var value = scales[i];
-
-
-                    var stringItem = JSON.stringify(value);
-
-                    options += "<option value='" + stringItem + "'>" + value.name + "</option>";
-                    console.log(options);
-                }
-                $("#sequence").html(options);
-
-            }
+                                    function renderTotalProb() {
+                                        $('#totalP').text(totalProb());
+                                    }
 
 
 
-            $("#btnEdit").click(function () {
-                var value = $("#btnEdit").attr("value");
+                                    function fixInput(idInput) {
+                                        var sub = 0;
+                                        var total = totalProb();
+                                        if (total > 100) {
+                                            sub = total - 100;
+                                            var val = $(idInput).val();
+                                            $(idInput).val(val - sub);
+
+                                        } else if (total < 100) {
+
+                                            sub = 100 - total;
+                                            var val = $(idInput).val();
+                                            $(idInput).val(val + sub);
+                                        }
+                                        renderTotalProb();
+
+                                    }
+                                    $(document).ready(function () {
+                                        viewScale();
+
+                                        $("#play").click(function () {
+
+                                            var notesStr = $("#randomSeq").html();
+                                            var notes = notesStr.split(",");
+                                            var piano = Synth.createInstrument('piano');
+                                            var idx = 0;
+                                            var interval = setInterval(function () {
+                                                piano.play((notes[idx] + "").trim(), 4, 2);
+                                                idx++;
+                                                if (idx >= notes.length) {
+                                                    clearInterval(interval);
+                                                }
+                                            }, 200);
+                                        });
+
+                                        function getAllInputs() {
+                                            r.probability = prob;
+                                        }
+
+                                        $('.prob').change(function () {
+                                            renderTotalProb();
+                                        });
+
+                                        function viewScale() {
+                                            var names = [];
+                                            var options = "<option value='0'>select</option>";
+
+                                            if (!localStorage.dataScale) {
+                                                return;
+                                            }
+                                            var scales = JSON.parse(localStorage.dataScale);
+
+                                            for (var i = 0; i < scales.length; i++) {
+
+                                                var value = scales[i];
 
 
-                if (value == 1) {
+                                                var stringItem = JSON.stringify(value);
 
+                                                options += "<option value='" + stringItem + "'>" + value.name + "</option>";
+                                                console.log(options);
+                                            }
+                                            $("#sequence").html(options);
 
-                    $(".prob").each(function () {
-                        $(this).prop("disabled", false);
-                    });
-                    $('#totalNotes').prop("disabled", false);
-                    $("#notes").prop("disabled", true);
-                    $("#sequence").prop("disabled", true);
-
-                    $("#btnEdit").val(0);
-
-                } else {
-
-                    $(".prob").each(function () {
-                        $(this).prop("disabled", true);
-                    });
-                    $('#totalNotes').prop("disabled", true);
-                    $("#notes").prop("disabled", false);
-                    $("#sequence").prop("disabled", false);
-                    $("#btnEdit").val(1);
-                }
-
-            });
+                                        }
 
 
 
-            $("#btnGenerate").click(function () {
-                let total = totalProb();
-                let prob = [];
-                let amount = $("#totalNotes").val();
-                //var scaleKey = scale.getScaleByKey();
+                                        $("#btnEdit").click(function () {
+                                            var value = $("#btnEdit").attr("value");
 
-                if (total == 100) {
-                    $('#btnGenerate').removeClass('btn-warning').addClass('btn-success ');
-                    $(this).addClass('btn-success').removeClass('btn-primary ');
 
-                    $('.prob').each(function () {
-                        prob.push(parseFloat($(this).val()) / 100);
+                                            if (value == 1) {
 
-                    });
-                    console.log(prob);
-                    var totalNote = $("#totalNotes").val();
 
-                    var sequenceJson = JSON.parse($("#sequence").val());
+                                                $(".prob").each(function () {
+                                                    $(this).prop("disabled", false);
+                                                });
+                                                $('#totalNotes').prop("disabled", false);
+                                                $("#notes").prop("disabled", true);
+                                                $("#sequence").prop("disabled", true);
 
-                    var scale = new Scale(sequenceJson.sequence, sequenceJson.name, $('#notes').val());
-                    var random = new RandomNotes(prob, scale);
-                    var generated = random.generateRandomNoteSequence(amount);
-                    var comma = "";
-                    var result = "";
-                    for(var i = 0; i < generated.length; i++) {
-                        result += comma + generated[i];
-                        comma = ", ";
-                    }
-                    $("#randomSeq").html(result);
-                } else {
-                    alert("Sua probabilidade total deve contabilizar 100%");
-                }
-            })
-        });
+                                                $("#btnEdit").val(0);
+
+                                            } else {
+
+                                                $(".prob").each(function () {
+                                                    $(this).prop("disabled", true);
+                                                });
+                                                $('#totalNotes').prop("disabled", true);
+                                                $("#notes").prop("disabled", false);
+                                                $("#sequence").prop("disabled", false);
+                                                $("#btnEdit").val(1);
+                                            }
+
+                                        });
+
+
+
+                                        $("#btnGenerate").click(function () {
+                                            let total = totalProb();
+                                            let prob = [];
+                                            let amount = $("#totalNotes").val();
+                                            //var scaleKey = scale.getScaleByKey();
+
+                                            if (total == 100) {
+                                                $('#btnGenerate').removeClass('btn-warning').addClass('btn-success ');
+                                                $(this).addClass('btn-success').removeClass('btn-primary ');
+
+                                                $('.prob').each(function () {
+                                                    prob.push(parseFloat($(this).val()) / 100);
+
+                                                });
+                                                console.log(prob);
+                                                var totalNote = $("#totalNotes").val();
+
+                                                var sequenceJson = JSON.parse($("#sequence").val());
+
+                                                var scale = new Scale(sequenceJson.sequence, sequenceJson.name, $('#notes').val());
+                                                var random = new RandomNotes(prob, scale);
+                                                var generated = random.generateRandomNoteSequence(amount);
+                                                var comma = "";
+                                                var result = "";
+                                                for (var i = 0; i < generated.length; i++) {
+                                                    result += comma + generated[i];
+                                                    comma = ", ";
+                                                }
+                                                $("#randomSeq").html(result);
+                                            } else {
+                                                alert("Sua probabilidade total deve contabilizar 100%");
+                                            }
+                                        })
+                                    });
     </script>
 </html>

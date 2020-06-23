@@ -18,36 +18,43 @@
 
     <body>
         <header> 
-             <nav class = "navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class = "navbar-brand mr-5" href = "index.html"><i class="fas fa-music"></i></a>
-                <button class = "navbar-toggler" type = "button" data-toggle = "collapse" data-target = "#navbarNavAltMarkup" aria-controls = "navbarNavAltMarkup" aria-expanded = "false" aria-label = "Toggle navigation">
-                    <span class = "navbar-toggler-icon"></span>
-                </button>
-                <div class = "collapse navbar-collapse" id = "navbarNavAltMarkup">
-                    <div class = "navbar-nav">
-                        <a class = "nav-item nav-link " href = "createNewSequence.html"><span class="textNav">My scales</span></a>
-                        <a class = "nav-item nav-link " href = "randomNotes.html"><span class="textNav">Notes generator</span></a>                      
-                        <a class = "nav-item nav-link " href = "pianoVirtual.html"><span class="textNav">Virtual Piano</span></a>
-                        <a class = "nav-item nav-link " href = "help.html"><span class="textNav">Help</span></a>
-                    </div>                  
+            <nav class = "navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="container">
+                    <a class = "navbar-brand mr-5" href = "index.html"><i class="fas fa-music"></i></a>
+                    <button class = "navbar-toggler" type = "button" data-toggle = "collapse" data-target = "#navbarNavAltMarkup" aria-controls = "navbarNavAltMarkup" aria-expanded = "false" aria-label = "Toggle navigation">
+                        <span class = "navbar-toggler-icon"></span>
+                    </button>
+                    <div class = "collapse navbar-collapse" id = "navbarNavAltMarkup">
+                        <div class = "navbar-nav">
+                            <a class = "nav-item nav-link " href = "createNewSequence.html"><span class="textNav">My scales</span></a>
+                            <a class = "nav-item nav-link " href = "randomNotes.html"><span class="textNav">Notes generator</span></a>                      
+                            <a class = "nav-item nav-link " href = "pianoVirtual.html"><span class="textNav">Virtual Piano</span></a>
+                            <a class = "nav-item nav-link " href = "help.html"><span class="textNav">Help</span></a>
+                        </div>                  
+                    </div>
+
                 </div>
-                <button id="play">Play</button>
-            </div>
-        </nav>
+            </nav>
         </header>
-        <h3 class="margin-item2">Piano virtual</h3>
-        
-        
+        <h1 style="text-align:center" class="bd-title margin-main" id="content">Virtual Piano</h1>
+        <hr class="featurette-divider">
 
-        
 
+
+        <script type="text/javascript" src="//downloads.mailchimp.com/js/signup-forms/popup/unique-methods/embed.js" data-dojo-config="usePlainJson: true, isDebug: false"></script>
+        <script type="text/javascript">window.dojoRequire(["mojo/signup-forms/Loader"], function (L) {
+                L.start({"baseUrl": "mc.us20.list-manage.com", "uuid": "dbcd725d81fa004cc7aa6230a", "lid": "673d85a600", "uniqueMethods": true})
+            })</script>
 
         <div ID="keyboard" class="keyboard-holder"></div> <!--calls js to create keyboard with id-->
-        
 
-        <a href="https://www.freecodecamp.org/news/javascript-piano-keyboard">Piano Virtual Criado através dessa API</a>
+        <script type="text/javascript">playKeyboard()</script>
+
+        <div ID="keyboard" class="keyboard-holder"></div> <!--calls js to create keyboard with id-->
         <br>
-
+        <h5 style="text-align:center"><strong>Head phones are recommended </strong><i class="fa fa-headphones" aria-hidden="true"></i> </5>
+        
     </body>
+
+
 </html>
