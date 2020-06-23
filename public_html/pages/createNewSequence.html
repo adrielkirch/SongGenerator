@@ -59,7 +59,7 @@
                 </div>
                 <button type="button"  class="btn btn-warning margin-item2" id="b5">Delete Item</button>
                 <button type="button"  class="btn btn-danger margin-item2" id="b6">Delete All</button>
-                <button type="button"  class="btn btn-primary margin-item2" id="b7">cliick</button>
+                
             </div>
         </main>
         <footer>
@@ -78,23 +78,28 @@
             function viewScale() {
                 var names = [];
                 var options = "<option value='0'>select</option>";
+                
+                if(! localStorage.dataScale){
+                    return;
+                } 
+                var scales = JSON.parse(localStorage.dataScale);
 
-                for (var i = 0, len = localStorage.length; i < len; i++) {
-                    var key = localStorage.key(i);
-                    var value = localStorage[key];
+                for (var i = 0; i < scales.length; i++) {
                     
+                    var value = scales[i];
+
 
                     var stringItem = JSON.stringify(value);
 
-                    options += "<option value='" + i + "'>" + stringItem + "</option>";
+                    options += "<option value='" + stringItem + "'>" + value.name + "</option>";
                     console.log(options);
                 }
                 $("#select").html(options);
 
             }
 
-       
-           viewScale();
+
+            viewScale();
             function createScale() {
                 var seq = $("#seq").text();
                 var name = $("#nameScale").val();
@@ -109,9 +114,10 @@
                 }
                 data.push(auxRegister);
                 localStorage.setItem("dataScale", JSON.stringify(data));
-                alert("A escala: " + name + " foi cadastrada com sucesso!");
+                alert("A escala: " + name + " foi cadastrada com sucesso!");  
                 $("#seq").val("");
                 $("#nameScale").val("");
+                viewScale();
             }
 
 
@@ -140,10 +146,7 @@
                 localStorage.clear();
             });
 
-            $("#b7").click(function () {
-                viewScale();
-
-            });
+ 
 
         });
 

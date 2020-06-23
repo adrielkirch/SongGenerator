@@ -1,23 +1,25 @@
 class Scale {
-    constructor(sequence,name) {
-        this.sequence = sequence; 
+    constructor(sequence, name, tonic) {
+        this.sequence = sequence;
         this.name = name;
         this.notes = new Notes();
+        this.currentPosition = 0;
+        this.tonic = tonic;
 
     }
 
     getScaleByKey(key) {
         var index = this.notes.findIndexByKey(key);
         var scale = [key];
-        for (var i = 0; i  < this.sequence.length - 1; i++) {
+        for (var i = 0; i < this.sequence.length - 1; i++) {
             //validation
-            
-            if(sequence.charAt(i)=='T') {                
-                nextIndex = this.notes.fixIndex(index+2);
+
+            if (this.sequence.charAt(i) == 'T') {
+                var nextIndex = this.notes.fixIndex(index + 2);
                 scale.push(notes[nextIndex]);
                 index = nextIndex;
-            } else if (sequence.charAt(i)=='S') {
-                nextIndex = this.notes.fixIndex(index+1);
+            } else if (this.sequence.charAt(i) == 'S') {
+                var nextIndex = this.notes.fixIndex(index + 1);
                 scale.push(notes[nextIndex]);
                 index = nextIndex;
             }
@@ -25,19 +27,80 @@ class Scale {
         return scale;
     }
 
-    set sequence(sequence) {
+    getNextNote(currentNote) {
+        var interval = this.sequence[this.currentPosition];
+
+        var index = this.notes.findIndexByKey(currentNote);
+        if (interval == 'T') {
+            index += 2;
+
+        }
+        else {
+            index += 1;
+        }
+         if (index >= this.notes.notes.length) {
+            index -= this.notes.notes.length;
+        }
+        this.addCurrentPosition(1);
+        return this.notes.notes[index];
+    }
+
+    getPreviousNote(currentNote) {
+        var interval = this.sequence[this.currentPosition];
+
+        var index = this.notes.findIndexByKey(currentNote);
+        if (interval == 'T') {
+            index -= 2;
+
+        } else {
+            index -= 1;
+        }
+
+        if (index < 0) {
+            index += this.notes.notes.length;
+        }
+        this.addCurrentPosition(-1);
+        return this.notes.notes[index];
+    }
+
+    addCurrentPosition(value) {
+        this.currentPosition += value;
+        if (this.currentPosition < 0) {
+            this.currentPosition += this.sequence.length;
+        } else if (this.currentPosition >= this.sequence.length) {
+            this.currentPosition -= this.sequence.length;
+        }
+    }
+
+    getThreeNote(currentNote) {
+        var next = this.getNextNote(currentNote);
+        return this.getNextNote(next);
+    }
+
+    getFiveNote(currentNote) {
+        var next = this.getNextNote(currentNote);
+        next = this.getNextNote(next);
+        next = this.getNextNote(next);
+        return this.getNextNote(next);
+    }
+
+    getNoteByIndex(index) {
+        return this.notes.findKeyByIndex(index);
+    }
+
+    setSequence(sequence) {
         this.sequence = sequence;
     }
 
-    set name(name) {
+    setName(name) {
         this.name = name;
     }
 
-    get name() { // define o get moed
+    getName() {
         return this.name;
     }
 
-    get sequence() {
+    getSequence() {
         return this.sequence;
     }
 

@@ -7,7 +7,9 @@
         <link rel="stylesheet" href="../styles/general.css">
         <script src="https://kit.fontawesome.com/2639085eae.js" crossorigin="anonymous"></script> 
         <script src="../Javascript/Scale.js" type="text/javascript"></script>
+        <script src="../Javascript/Notes.js" type="text/javascript"></script>
         <script src="../Javascript/RandomNotes.js" type="text/javascript"></script>
+
 
     <body>
         <header> 
@@ -40,7 +42,7 @@
                     <h4>Basic</h4>
                     <div class="form-group">
                         <label>Tonic</label>
-                        <select name="notes" class="form-control">
+                        <select name="notes" id="notes" class="form-control">
                             <option value="C">C</option> 
                             <option value="C#">C#</option>
                             <option value="D">D</option>
@@ -63,42 +65,42 @@
                         </select>
                     </div>
 
-                    <button id="btnEdit" type="button" class="btn btn-primary margin-item1">edit</button>
+                    <button id="btnEdit" type="button" value="1" class="btn btn-primary">edit</button>
                     <hr>
                     <h4 class="margin-item2">Probabilities</h4>
                     <div class="margin-main"> 
                         <label>Next Note (%)</label>
                         <div class="input-group sm-12 margin-main">
-                            <input type="number" id="p1" class="form-control prob" placeholder="next Note" aria-label="next Note" aria-describedby="basic-addon2"  min="0" max="100">
+                            <input type="number" id="p1" class="form-control prob" placeholder="next Note" aria-label="next Note" aria-describedby="basic-addon2"  min="0" max="100" disabled>
                             <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2" >0~100</span>
-                                <button id="btnFix1" type="button" class="btn btn-primary margin-item1">fix</button>
+                                <button id="btnFix1" type="button" class="btn btn-primary" onclick="fixInput('#p1')">fix</button>
                             </div>
                         </div>
                         <label>Previous Note (%)</label>
                         <div class="input-group sm-12 margin-main">
-                            <input type="number" id="p2"  class="form-control prob" placeholder="previous Note" aria-label="previous Note" aria-describedby="basic-addon2"  min="0" max="100">
+                            <input type="number" id="p2"  class="form-control prob" placeholder="previous Note" aria-label="previous Note" aria-describedby="basic-addon2"  min="0" max="100" disabled>
                             <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2" >0~100</span>
-                                <button id="btnFix2" type="button" class="btn btn-primary btnFix margin-item1">fix</button>
+                                <button id="btnFix2" type="button" class="btn btn-primary btnFix" onclick="fixInput('#p2')">fix</button>
                             </div>
                         </div>
 
                         <label>Degree 3 (chord) (%)</label>
                         <div class="input-group sm-12 margin-main">
-                            <input type="number" id="p3" class="form-control prob" placeholder="" aria-label="" aria-describedby="basic-addon2"  min="0" max="100">
+                            <input type="number" id="p3" class="form-control prob" placeholder="" aria-label="" aria-describedby="basic-addon2"  min="0" max="100" disabled>
                             <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2" >0~100</span>
-                                <button id="btnFix3" type="button" class="btn btn-primary margin-item1">fix</button>
+                                <button id="btnFix3" type="button" class="btn btn-primary" onclick="fixInput('#p3')">fix</button>
                             </div>
                         </div>
 
                         <label>Degree 5 (chord) (%)</label>
                         <div class="input-group sm-12 margin-main">
-                            <input type="number" id="p4" class="form-control prob" placeholder="" aria-label="previous Note" aria-describedby="basic-addon2"  min="0" max="100">
+                            <input type="number" id="p4" class="form-control prob" placeholder="" aria-label="previous Note" aria-describedby="basic-addon2"  min="0" max="100" disabled>
                             <div class="input-group-append">
                                 <span class="input-group-text" id="basic-addon2" >0~100</span>
-                                <button id="btnFix4" type="button" class="btn btn-primary btnFix margin-item1">fix</button>
+                                <button id="btnFix4" type="button" class="btn btn-primary btnFix" onclick="fixInput('#p4')">fix</button>
                             </div>
                         </div>
 
@@ -117,104 +119,179 @@
 
                     <label>Total notes</label>
                     <div class="input-group sm-12 margin-main ">
-                        <input type="number" class="form-control" placeholder="total" id="totalNotes" aria-label="previous Note" aria-describedby="basic-addon2"  min="0" max="100">                     
+                        <input type="number" class="form-control" placeholder="total" id="totalNotes" aria-label="previous Note" aria-describedby="basic-addon2"  min="0" max="100" disabled>                     
                     </div>
 
 
 
-                    <strong>Notes: </strong> <span>C D E F G A B</span> <br> 
+                    <strong>Notes: </strong> <span id="scale">C D E F G A B</span> <br> 
 
                     <div class="margin-item2">
                         <strong class="disabled"> Random Sequence:</strong>
-                        <span> C E G A B C D C G A G B E F C E E F A</span>
+                        <span id="randomSeq"> C E G A B C D C G A G B E F C E E F A</span>
                     </div>
 
 
 
 
-                    <button id="btnGenerate" type="button" class="btn btn-warning margin-item1">Generate</button>
+                    <button id="btnGenerate" type="button" class="btn btn-warning">Generate</button>
 
 
                     <br>
-                    <script>
-                        $(document).ready(function () {
-                            var prob = [];
-                            var key = "C";
-                            var scale = new Scale("TTSTTTS", "Major");
-                            var scaleKey = scale.getScaleByKey();
-                            var r = new RandomNotes(prob, scale);
-                            function totalProb() {
-                                var total = 0;
-                                $('.prob').each(function () {
-                                    total += parseFloat($(this).val());
-                                })
-                                return total;
-                            }
 
-                            function getAllInputs() {
-
-                                $('.prob').each(function () {
-                                    prob.push(parseFloat($(this).val())/100);
-                                   
-                                });
-                                 r.probability = prob;
-                            }
-                            
-                            
-
-
-
-                            $('.prob').change(function () {
-                                $('#totalP').text(totalProb());
-                            });
-                            $(".btnFix").click(function () {
-                                var idBottom = (this).attr('id');
-                                var idInput = idBottom[6] + idBottom[7];
-                                idInput += "p" + idInput;
-                                alert(idInput);
-                                fixInput();
-                                let input = $(idInput).val();
-                                input = fixInput(input);
-                                $(idInput).val(input);
-                            });
-                            function fixInput(input) {
-                                var sub = 0;
-                                if (totalProb() > 100) {
-                                    sub = totalProb - 100;
-                                    input = input - sub;
-                                } else if (totalProb() < 100) {
-                                    sub = 100 - totalProb();
-                                    input = input + sub;
-                                }
-
-                                return input;
-                            }
-
-                        
-
-
-                            
-                            $("#btnGenerate").click(function () {
-                                let total = totalProb();
-                                if (total == 100) {
-                                    $('#btnGenerate').removeClass('btn-warning').addClass('btn-success ');
-                                    $(this).addClass('btn-success').removeClass('btn-primary ');
-                                    getAllInputs();
-                                   var totalNote = $("#totalNotes").val();
-                                   r.getRandom(key,totalNote);
-                                    
-                                } else {
-                                    alert("Sua probabilidade total deve contabilizar 100%");
-                                }
-                            })
-                        });
-                    </script>
 
                 </div>    
 
         </main>
+
         <footer>
 
         </footer>
     </body>
+    <script>
+        function totalProb() {
+            var total = 0;
+            $('.prob').each(function () {
+                if (!$(this).val()) {
+                    return;
+                }
+                total += parseFloat($(this).val());
+            })
+            return total;
+        }
+
+        function renderTotalProb() {
+            $('#totalP').text(totalProb());
+        }
+
+
+
+        function fixInput(idInput) {
+            var sub = 0;
+            var total = totalProb();
+            if (total > 100) {
+                sub = total - 100;
+                var val = $(idInput).val();
+                $(idInput).val(val - sub);
+
+            } else if (total < 100) {
+
+                sub = 100 - total;
+                var val = $(idInput).val();
+                $(idInput).val(val + sub);
+            }
+            renderTotalProb();
+
+        }
+        $(document).ready(function () {
+            viewScale();
+
+
+
+
+
+
+
+
+            function getAllInputs() {
+
+
+                r.probability = prob;
+            }
+
+
+
+
+
+            $('.prob').change(function () {
+                renderTotalProb();
+            });
+
+
+
+            function viewScale() {
+                var names = [];
+                var options = "<option value='0'>select</option>";
+
+                if (!localStorage.dataScale) {
+                    return;
+                }
+                var scales = JSON.parse(localStorage.dataScale);
+
+                for (var i = 0; i < scales.length; i++) {
+
+                    var value = scales[i];
+
+
+                    var stringItem = JSON.stringify(value);
+
+                    options += "<option value='" + stringItem + "'>" + value.name + "</option>";
+                    console.log(options);
+                }
+                $("#sequence").html(options);
+
+            }
+
+
+
+            $("#btnEdit").click(function () {
+                var value = $("#btnEdit").attr("value");
+
+
+                if (value == 1) {
+
+
+                    $(".prob").each(function () {
+                        $(this).prop("disabled", false);
+                    });
+                    $('#totalNotes').prop("disabled", false);
+                    $("#notes").prop("disabled", true);
+                    $("#sequence").prop("disabled", true);
+
+                    $("#btnEdit").val(0);
+
+                } else {
+
+                    $(".prob").each(function () {
+                        $(this).prop("disabled", true);
+                    });
+                    $('#totalNotes').prop("disabled", true);
+                    $("#notes").prop("disabled", false);
+                    $("#sequence").prop("disabled", false);
+                    $("#btnEdit").val(1);
+                }
+
+            });
+
+
+
+            $("#btnGenerate").click(function () {
+                let total = totalProb();
+                let prob = [];
+                let amount = $("#totalNotes").val();
+                //var scaleKey = scale.getScaleByKey();
+
+                if (total == 100) {
+                    $('#btnGenerate').removeClass('btn-warning').addClass('btn-success ');
+                    $(this).addClass('btn-success').removeClass('btn-primary ');
+
+                    $('.prob').each(function () {
+                        prob.push(parseFloat($(this).val()) / 100);
+
+                    });
+                    console.log(prob);
+                    var totalNote = $("#totalNotes").val();
+
+                    var sequenceJson = JSON.parse($("#sequence").val());
+
+                    var scale = new Scale(sequenceJson.sequence, sequenceJson.name, $('#notes').val());
+                    var random = new RandomNotes(prob, scale);
+                    random.generateRandomNoteSequence(amount);
+
+                } else {
+                    alert("Sua probabilidade total deve contabilizar 100%");
+                }
+            })
+        });
+    </script>
 </html>

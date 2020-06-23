@@ -1,37 +1,40 @@
 class Notes {
     constructor() {
-        this.notes = ["C","C#","D","D#","E","F","F#","G","G#","A","A#","B"];
-       
-        
-    }
-    
+        this.notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
 
-    get notes() {
+
+    }
+
+    getNotes() {
         return this.notes;
     }
-    
-    findIndexByKey(key){
-       let index = 0;
+
+    setNotes(notes) {
+        this.notes = notes;
+    }
+
+    findIndexByKey(key) {
+        let index = 0;
         for (var i = 0; i < notes.length; i++) {
-            if(this.notes[i]== key) {
+            if (this.notes[i] == key) {
                 return i;
             }
         }
-        
-        
+
+
     }
-    
+
     findKeyByIndex(index) {
-       return this.notes[index];
+        return this.notes[index];
     }
-    
-    fixIndex(index) {
-        if(index > 11) {
-            index = index % 12;
+
+    fixIndex(index, size) {
+        if (index > size) {
+            index = index % size;
             return index
         } else {
-            return index; 
-        }       
+            return index;
+        }
     }
 
 }
