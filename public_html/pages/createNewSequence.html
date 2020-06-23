@@ -57,36 +57,34 @@
 
                     </select>
                 </div>
-                
+
                 <button type="button"  class="btn btn-danger margin-item2" id="b6">Delete All</button>
-                
+
             </div>
         </main>
-        <footer>
-
+        <footer class="container">
+            <p class="float-right"><a href="#">Back to top</a></p>
+            <p>&copy; 2020 by Adriel Kirch&middot; </p>
         </footer>
     </body>
+
     <script>
 
 
-    </script>
-    <script>
-     
-        
         $(document).ready(function () {
 
             let sequenciaIntervalo = "";
             function viewScale() {
                 var names = [];
                 var options = "<option value='0'>select</option>";
-                
-                if(! localStorage.dataScale){
+
+                if (!localStorage.dataScale) {
                     return;
-                } 
+                }
                 var scales = JSON.parse(localStorage.dataScale);
 
                 for (var i = 0; i < scales.length; i++) {
-                    
+
                     var value = scales[i];
 
 
@@ -115,7 +113,7 @@
                 }
                 data.push(auxRegister);
                 localStorage.setItem("dataScale", JSON.stringify(data));
-                alert("A escala: " + name + " foi cadastrada com sucesso!");  
+                alert("A escala: " + name + " foi cadastrada com sucesso!");
                 $("#seq").val("");
                 $("#nameScale").val("");
                 viewScale();
@@ -148,7 +146,7 @@
                 viewScale();
             });
 
- 
+
 
         });
 

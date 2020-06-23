@@ -1,12 +1,12 @@
 class RandomNotes {
     //Construtor da RandomNotes
     constructor(probability, scale) {
-        this.probability = probability; // next note, previous Note, ThirdDegree, Fith degree
+        this.probability = probability; 
         this.scale = scale;
         this.size = scale.length;
     }
     
-   //gerar uma sequencia aleatória, amout representa total de notas a ser gerada
+   //gerar uma sequencia aleatória, @param:amount representa total de notas a ser gerada
     generateRandomNoteSequence(amount) {
         var array = [];
         var result = [];
