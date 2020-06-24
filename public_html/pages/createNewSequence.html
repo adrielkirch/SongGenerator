@@ -69,33 +69,61 @@
     </body>
 
     <script>
+        function standardScale() {
+            var data = JSON.parse(localStorage.getItem("dataScale"));
+            localStorage.setItem("dataScale", "[]");
+            data = [];
 
+           
+            let scales = [
+                {
+                    sequence: "TTSTTTS",
+                    name:"Major"
+                },
+                   {
+                    sequence: "TSTTTST",
+                    name:"Dorian"
+                },
+                {
+                    sequence: "TSTTTTS",
+                    name:"Minor Melodic"
+                },
+                {
+                    sequence: "TTSTSTT",
+                    name:"Egypth"
+                }
+            ];
+            
+            scales.forEach(function(element){
+               data.push(element);
+            });
+            
+           
+            localStorage.setItem("dataScale", JSON.stringify(data));
+        }
+
+        function viewScale() {
+            var names = [];
+            var options = "<option value='0'>select</option>";
+
+            if (!localStorage.dataScale) {
+                standardScale();
+            }
+            var scales = JSON.parse(localStorage.dataScale);
+
+            for (var i = 0; i < scales.length; i++) {
+                var value = scales[i];
+                var stringItem = JSON.stringify(value);
+                options += "<option value='" + stringItem + "'>" + value.name + "</option>";
+                console.log(options);
+            }
+            $("#select").html(options);
+        }
 
         $(document).ready(function () {
 
             let sequenciaIntervalo = "";
-            function viewScale() {
-                var names = [];
-                var options = "<option value='0'>select</option>";
 
-                if (!localStorage.dataScale) {
-                    return;
-                }
-                var scales = JSON.parse(localStorage.dataScale);
-
-                for (var i = 0; i < scales.length; i++) {
-
-                    var value = scales[i];
-
-
-                    var stringItem = JSON.stringify(value);
-
-                    options += "<option value='" + stringItem + "'>" + value.name + "</option>";
-                    console.log(options);
-                }
-                $("#select").html(options);
-
-            }
 
 
             viewScale();
@@ -136,13 +164,10 @@
             $("#b3").click(function () {
                 $('#seq').text("");
             });
-            $("#b5").click(function () {
-                let option = $("#option").val();
-                localStorage.removeItem(option);
-            });
+         
 
             $("#b6").click(function () {
-                localStorage.clear();
+                localStorage.removeItem("dataScale");
                 viewScale();
             });
 
